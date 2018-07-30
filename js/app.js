@@ -25,8 +25,11 @@ const octopus = {
               },
     navClick: function(e) {
                 if(e.target.tagName === 'BUTTON') {
-                  octopus.setCurrCat(e.target['data-num'])
-                  view.renderViewer();
+                  if(e.target.classList.contains('admin-btn')) {view.toggleForm();}
+                  else {
+                    octopus.setCurrCat(e.target['data-num'])
+                    view.renderViewer();
+                  }
                 }
               },
     catClick: function(e) {
@@ -40,6 +43,10 @@ const octopus = {
 const view = {
    navContainer:  document.querySelector('.nav-container'),
          viewer:  document.querySelector('.viewer'),
+           form:  document.querySelector('.admin'),
+           name:  document.querySelector('.admin input[id="name"]'),
+            url:  document.querySelector('.admin input[id="url"]'),
+         clicks:  document.querySelector('.admin input[id="clicks"]'),
            init:  function() {
                     octopus.setCurrCat(0);
                     this.renderNav();
@@ -49,7 +56,6 @@ const view = {
                   },
       renderNav:  function() {
                     let navButtons = document.createDocumentFragment();
-                    console.dir(navButtons);
                     let cats = octopus.getCats();
                     cats.forEach(function(cat, index) {
                        let catName = document.createElement('BUTTON');
@@ -58,7 +64,7 @@ const view = {
                        catName.textContent = model.cats[index].name;
                        navButtons.appendChild(catName);
                     });
-                    this.navContainer.appendChild(navButtons);
+                    this.navContainer.insertBefore(navButtons, this.navContainer.childNodes[0]);
                   },
    renderViewer:  function(index) {
                     let cat = octopus.getCurrCat(),
@@ -70,6 +76,16 @@ const view = {
    renderClicks:  function() {
                     let cat = octopus.getCurrCat()
                     document.querySelector('.viewer h2').textContent = 'Clicks: ' + cat.clicks;
+                  },
+     toggleForm:  function() {
+                    this.form.classList.toggle('show');
+                    this.populateForm();
+                  },
+   populateForm:  function() {
+                    let cat = octopus.getCurrCat();
+                    this.name.value = cat.name;
+                    this.url.value = cat.src;
+                    this.clicks.value = cat.clicks;
                   }
 };
 

@@ -65,6 +65,10 @@ body {
   box-shadow: 3px 3px 8px #000;
 }
 
+.admin-btn {
+  border: 2px solid red;
+}
+
 main {
   background: #bbb;
   border-radius: 15px;
@@ -91,4 +95,25 @@ a:link, a:visited {
 
 a:hover, a:active {
   color: #eee;
+}
+
+.admin {
+  display: none;
+  margin: 5px auto;
+  text-align: right;
+  width: 335px;
+  border: 1px solid #333;
+  padding: 8px 0 5px 0;
+  border-radius: 10px;
+}
+
+.show {
+  display: block;
+}
+
+.admin input {
+  box-shadow: 2px 2px 4px #000 inset;
+  margin: 0 10px 5px 2px;
+  padding: 6px 0 3px 10px;
+  width: 230px;
 }
