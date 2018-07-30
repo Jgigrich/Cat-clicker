@@ -29,7 +29,7 @@ body {
   padding: 15px;
 }
 
-.list-container {
+.nav-container {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -49,14 +49,14 @@ body {
     justify-content: flex-start;
   }
 
-  .list-container {
+  .nav-container {
     flex-flow: column;
     margin: 0 20px 0 0;
     font-size: 1.3em;
   }
 }
 
-.list-btn {
+.nav-btn {
   margin: 5px;
   border: 2px solid white;
   border-radius: 8px;

@@ -13,11 +13,11 @@ const model = {
 };
 
 const octopus = {
-   buildList: function() {
+   buildNav: function() {
                 let catNames = document.createDocumentFragment();//document.createElement('ul');
                 model.cats.forEach(function(cat, index) {
                     let catName = document.createElement('BUTTON');
-                    catName.classList.add('list-btn');
+                    catName.classList.add('nav-btn');
                     catName['data-num'] = index;
                     catName.textContent = model.cats[index].name;
                     catNames.appendChild(catName);
@@ -28,7 +28,7 @@ viewerString: function(index) {
                 let cat = model.cats[index];
                 return `<h1>${cat.name}</h1><h2>Clicks: ${cat.clicks}</h2><img data-num="${index}" src="${cat.src}">`;
               },
-   listClick: function(e) {
+    navClick: function(e) {
                 if(e.target.tagName === 'BUTTON') {
                   view.renderViewer(e.target['data-num']);
                 }
@@ -43,18 +43,16 @@ viewerString: function(index) {
 };
 
 const view = {
-  listContainer:  document.querySelector('.list-container'),
+   navContainer:  document.querySelector('.nav-container'),
          viewer:  document.querySelector('.viewer'),
            init:  function() {
-                    this.renderList();
+                    this.renderNav();
                     this.renderViewer(0);
-                    this.listContainer.addEventListener('click', octopus.listClick);
+                    this.navContainer.addEventListener('click', octopus.navClick);
                     this.viewer.addEventListener('click', octopus.catClick);
                   },
-     renderList:  function() {
-                     /*let catList = octopus.buildList();
-                     catList.classList.add('cat-list');*/
-                     this.listContainer.appendChild(octopus.buildList());
+      renderNav:  function() {
+                     this.navContainer.appendChild(octopus.buildNav());
                   },
    renderViewer:  function(index) {
                     this.viewer.innerHTML = octopus.viewerString(index);
