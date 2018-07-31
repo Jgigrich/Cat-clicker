@@ -8,7 +8,7 @@ const model = {
           {name: 'Jill',    clicks: 0, src: 'img\\Ankara_Kedisi_(Prenses).jpg', alt: 'Cat'},
           {name: 'Sherri',  clicks: 0, src: 'img\\Sherri_with_mouse.jpg',       alt: 'Cat'},
           {name: 'Jonesie', clicks: 0, src: 'img\\Jonesie_(2410643631).jpg',    alt: 'Cat'},
-          {name: 'Lily',    clicks: 0, src: 'img\\Tortoiseshellshorthair.JPG',  alt: 'Cat'}
+          {name: 'Lilly',   clicks: 0, src: 'img\\Tortoiseshellshorthair.JPG',  alt: 'Cat'}
         ],
   currentCat: null
 };
@@ -37,6 +37,25 @@ const octopus = {
                   model.currentCat.clicks++;
                   view.renderClicks();
                 }
+              },
+   formClick: function(e) {
+                if(e.target.tagName = 'BUTTON') {
+                    switch(e.target.id) {
+                      case 'reset-btn':  view.populateForm(); break;
+                      case 'cancel-btn': view.toggleForm();   break;
+                      case 'save-btn':   octopus.saveForm();
+                    }
+                }
+              },
+    saveForm: function() {
+                let cat = this.getCurrCat(),
+                    form = document.querySelector('.admin');
+                cat.name = form[0].value;
+                cat.src = form[1].value.replace('\\', '\\\\');
+                cat.clicks = form[2].value;
+                view.toggleForm();
+                view.renderViewer();
+                view.renderNav();
               }
 };
 
@@ -47,14 +66,17 @@ const view = {
            name:  document.querySelector('.admin input[id="name"]'),
             url:  document.querySelector('.admin input[id="url"]'),
          clicks:  document.querySelector('.admin input[id="clicks"]'),
+       formBtns:  document.querySelector('.form-btns'),
            init:  function() {
                     octopus.setCurrCat(0);
                     this.renderNav();
                     this.renderViewer();
                     this.navContainer.addEventListener('click', octopus.navClick);
                     this.viewer.addEventListener('click', octopus.catClick);
+                    this.formBtns.addEventListener('click', octopus.formClick);
                   },
       renderNav:  function() {
+                    this.navContainer.innerHTML = '<button class="nav-btn admin-btn">admin</button>';
                     let navButtons = document.createDocumentFragment();
                     let cats = octopus.getCats();
                     cats.forEach(function(cat, index) {
